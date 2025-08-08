@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Cloned Avatar Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>/* Base reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #FFFFFF;
+  background-color: #1F1F1F;
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header .logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  color: #FF7A00;
+}
+
+nav a {
+  margin-left: 24px;
+  text-decoration: none;
+  color: #BBBBBB;
+  font-weight: 600;
+}
+
+.hero {
+  padding: 96px 0;
+  text-align: center;
+  background: linear-gradient(135deg, #2A2A2A, #1F1F1F);
+}
+
+.hero button {
+  margin-top: 24px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #FF7A00;
+  border: none;
+  color: #1F1F1F;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+
+.about, .how-it-works, .demo {
+  padding: 64px 0;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background-color: #2A2A2A;
+  color: #FFFFFF;
+}
+
+button {
+  display: block;
+  margin-top: 16px;
+}
+
+.site-footer {
+  padding: 32px 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #BBBBBB;
+}
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">MyAvatar</h1>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#demo">Demo</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+<section id="home" class="hero">
+  <div class="container hero-content">
+
+    <video
+      id="avatar-video"
+      class="avatar-video"
+      src="talking avatar.mp4"
+      poster="Portrait of a Calm Smile.png"
+      controls
+      autoplay
+      muted
+      loop
+    >
+      Your browser doesn’t support the video tag.
+    </video>
+
+    <button id="play-demo">Play Voice Demo</button>
+  </div>
+</section>
+
+
+
+  <section id="about" class="about">
+    <div class="container grid-2">
+      <div>
+        <h2>About My Avatar</h2>
+        <p>This avatar is a digital clone that mirrors my voice and likeness.</p>
+        <ul>
+          <li>True-to-life lip-sync</li>
+          <li>Multi-language support</li>
+          <li>Customizable scripts</li>
+        </ul>
+      </div>
+      <img src="Portrait of a Calm Smile.png" alt="Avatar Preview">
+    </div>
+  </section>
+
+  <section id="how" class="how-it-works">
+    <div class="container">
+      <h2>Other AI Avatar</h2>
+      <div class="steps grid-3">
+        <div><img src="genius.png" alt=""><p>Mad Scientist</p></div>
+        <div><img src="gangster.png" alt=""><p>1940's Gangster</p></div>
+        <div><img src="icon-embed.svg" alt=""><p>Embed Anywhere</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="demo">
+    <div class="container">
+      <h2>Generate Your Script</h2>
+      <textarea id="user-script" placeholder="Type your message..."></textarea>
+      <button id="generate-audio">Generate Audio</button>
+      <audio id="avatar-audio" controls></audio>
+    </div>
+  </section>
+
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <p>Connect with me on <a href="https://github.com/Gkittrell/assignments">GitHub</a> | Hosted on GitHub Pages</p>
+    </div>
+  </footer>
+
+  <script>// Replace with actual API endpoints or embed code from your chosen tool
+const playBtn = document.getElementById('play-demo');
+const audioEl = document.getElementById('avatar-audio');
+const genBtn = document.getElementById('generate-audio');
+const userScript = document.getElementById('user-script');
+
+// Demo playback
+playBtn.addEventListener('click', () => {
+  audioEl.src = 'pre-generated-demo.mp3';
+  audioEl.play();
+});
+
+// Generate custom audio
+genBtn.addEventListener('click', async () => {
+  const text = encodeURIComponent(userScript.value.trim());
+  if (!text) return alert('Please enter a script.');
+  // Example fetch; swap URL for your voice-clone API
+  const res = await fetch(`https://api.clonevoice.com/generate?text=${text}`);
+  const blob = await res.blob();
+  audioEl.src = URL.createObjectURL(blob);
+  audioEl.play();
+});
+
+</script>
+</body>
+</html>
+
